@@ -62,7 +62,7 @@ class HFInferenceModel():
             device_map=device_map,
             cache_dir=model_cache_dir,
             token=os.getenv("HF_TOKEN"),
-            attn_implementation="flash_attention_2",
+            # attn_implementation="flash_attention_2",
             max_memory=None
         )
         self.model = torch.compile(self.model)
@@ -123,15 +123,15 @@ class HFInferenceModel():
         
         
         # SAMPLE NUM_RETURN_SEQUENCES FOR EACH BATCH
-        with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=False):
-            output = self.model.generate(
-                inputs["input_ids"], 
-                max_new_tokens=max_new_tokens,
-                do_sample=do_sample,
-                top_p=top_p,
-                temperature=temperature,
-                num_return_sequences=num_return_sequences,
-            )[:, inputs['input_ids'].shape[1]:]
+        # with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=False):
+        output = self.model.generate(
+            inputs["input_ids"], 
+            max_new_tokens=max_new_tokens,
+            do_sample=do_sample,
+            top_p=top_p,
+            temperature=temperature,
+            num_return_sequences=num_return_sequences,
+        )[:, inputs['input_ids'].shape[1]:]
 
         # BATCH DECODE
         output = self.tokenizer.batch_decode(

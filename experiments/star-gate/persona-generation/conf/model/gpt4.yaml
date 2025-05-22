@@ -9,6 +9,7 @@ model_config:
   azure_api:
     azure_endpoint: "https://philipp.openai.azure.com/"
     api_version: "2024-02-01"
+    api_key: ${oc.env:OPENAI_API_KEY}
   seed: 1
 
 run:

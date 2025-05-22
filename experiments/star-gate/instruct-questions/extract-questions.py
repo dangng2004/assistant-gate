@@ -9,8 +9,9 @@ import fire
 import datasets
 from datasets import load_dataset
 
-from paths import *
-
+# Define paths
+PROMPT_PATH = "/data/dangnguyen/preference-lit-summ/assistant-gate/experiments/star-gate/instruct-questions/outputs"
+VERSION_2_BSFT = "version_2_bsft"
 
 logging.basicConfig(level=logging.INFO)
 
